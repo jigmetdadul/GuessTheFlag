@@ -8,14 +8,25 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var on = true
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        VStack(alignment: .center){
+            HStack(alignment: .center){
+                Text("one")
+                Text("one")
+                Text("one")
+            }
+            HStack(alignment: .center){
+                Text("one")
+                Text("one")
+                Text("one")
+            }
+            HStack(alignment: .center){
+                Text("one")
+                Text("one")
+                Text("one")
+            }
         }
-        .padding()
     }
 }
 
