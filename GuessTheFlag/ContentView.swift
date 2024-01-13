@@ -8,24 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var on = true
+    @State var showAler = false
     var body: some View {
-        VStack(alignment: .center){
-            HStack(alignment: .center){
-                Text("one")
-                Text("one")
-                Text("one")
+        VStack{
+            Button("Aler"){
+                showAler = true
+            }.alert("Alert", isPresented: $showAler){
+                Button("Cancel"){}
+                Button("Continue"){}
+            } message: {
+                Button("hi", systemImage: "pencil"){
+                    
+                }
             }
-            HStack(alignment: .center){
-                Text("one")
-                Text("one")
-                Text("one")
-            }
-            HStack(alignment: .center){
-                Text("one")
-                Text("one")
-                Text("one")
-            }
+            Text(String(showAler))
         }
     }
 }
