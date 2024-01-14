@@ -15,27 +15,48 @@ struct ContentView: View {
     
     var body: some View {
         ZStack{
-            Color.blue.ignoresSafeArea()
-            VStack(spacing: 30){
-                VStack{
-                    Text("Tap the flag of: ").foregroundStyle(Color(.white))
-                    Text(countries[correctAnswer]).foregroundStyle(Color(.white))
-                }
-                
-                ForEach(0..<3){ number in
-                    Text("Before: \(number)")
-                    Button{
-                        flagTapped(number)
-                        //Text("after: \(number)")
-                    }label: {
-                        Image(countries[number])
-                    }.buttonStyle(.bordered).foregroundColor(.white).tint(.red).padding(1)
-                }
+            RadialGradient(stops: [
+                .init(color: .blue, location: 0.3),
+                .init(color: .red, location: 0.3),
+            ], center: .top, startRadius: 100, endRadius: 750)
+            .ignoresSafeArea()
+            RadialGradient(stops: [
+                .init(color: .cyan, location: 0.3),
+                .init(color: .clear, location: 0.3),
+            ], center: .top, startRadius: 2, endRadius: 600)
+            .ignoresSafeArea()
+            VStack{
+                Spacer()
+                Text("Guess the Flag").font(.largeTitle.bold()).foregroundStyle(.white)
+                VStack(spacing: 15){
+                    
+                    VStack{
+                        Text("Tap the flag of: ").foregroundStyle(.secondary).font(.subheadline).bold()
+                        Text(countries[correctAnswer]).font(.largeTitle.weight(.heavy))
+                    }
+                    
+                    ForEach(0..<3){ number in
+                        Button{
+                            flagTapped(number)
+                        }label: {
+                            Image(countries[number])
+                                .clipShape(.capsule)
+                                .shadow(radius: 100)
+                        }
+                    }
+                }.frame(maxWidth: .infinity)
+                    .padding(.vertical, 10).background(.regularMaterial)
+                 .clipShape(.rect(cornerRadius: 20))
+                Spacer()
+                Text("Score: ???").foregroundStyle(.white).font(.largeTitle.weight(.semibold))
+                Spacer()
+                Spacer()
+            }.alert(scoreTitle, isPresented: $showScore) {
+                Button("Continue", action: askQuestion)
+            } message: {
+                Text("\(correctAnswer)")
             }
-        }.alert(scoreTitle, isPresented: $showScore) {
-            Button("Continue", action: askQuestion)
-        } message: {
-            Text("\(correctAnswer)")
+            .padding()
         }
         }
     
